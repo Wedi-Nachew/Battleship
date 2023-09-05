@@ -3,7 +3,7 @@ const Ship = () => {
         length: 2,
         hits: 0,
         hit() {
-            History++;
+            this.hits++;
         },
         isSunk() {
             if (this.length === this.hits) return true;
@@ -15,7 +15,7 @@ const Ship = () => {
         length: 3,
         hits: 0,
         hit() {
-            hits++;
+            this.hits++;
         },
         isSunk() {
             if (this.length === this.hits) return true;
@@ -27,11 +27,10 @@ const Ship = () => {
         length: 3,
         hits: 0,
         hit() {
-            hits++;
+            this.hits++;
         },
         isSunk() {
             if (this.length === this.hits) return true;
-
             return false;
         },
     };
@@ -39,7 +38,7 @@ const Ship = () => {
         length: 4,
         hits: 0,
         hit() {
-            hits++;
+            this.hits++;
         },
         isSunk() {
             if (this.length === this.hits) return true;
@@ -51,7 +50,7 @@ const Ship = () => {
         length: 5,
         hits: 0,
         hit() {
-            hits++;
+            this.hits++;
         },
         isSunk() {
             if (this.length === this.hits) return true;
