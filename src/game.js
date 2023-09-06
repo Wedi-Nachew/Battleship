@@ -83,6 +83,11 @@ const playGame = () => {
             computerPlayGround.removeChild(computerPlayGround.firstChild);
         }
     };
+    const announceWinner = (winner) => {
+        const winnerText = document.querySelector(".announce-winner h1");
+        winnerText.textContent = winner + " Wons!";
+        winnerText.parentElement.style.cssText = "visibility: visible";
+    };
 
     computerPlayGround.addEventListener("click", (event) => {
         if (
@@ -96,7 +101,14 @@ const playGame = () => {
             renderGameBoard();
             renderShips();
         }
-        console.log(computerGameBoard.allShipsAreSunk());
+        if (
+            playerGameBoard.allShipsAreSunk() ||
+            computerGameBoard.allShipsAreSunk()
+        ) {
+            playerGameBoard.allShipsAreSunk
+                ? announceWinner("You")
+                : announceWinner("The computer");
+        }
     });
 };
 renderGameBoard();

@@ -5,7 +5,7 @@ export const Player = (atCoord) => {
 };
 
 export const Computer = () => {
-    const allPossibleMoves = playerGameBoard.coords();
+    const allPossibleMoves = computerGameBoard.coords();
     const computerMove =
         allPossibleMoves[~~(Math.random() * allPossibleMoves.length)];
     allPossibleMoves.splice(
