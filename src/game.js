@@ -92,6 +92,12 @@ const playGame = () => {
     computerPlayGround.addEventListener("click", (event) => {
         if (
             event.target.nodeName === "DIV" &&
+            !computerGameBoard.moves.hits.includes(
+                event.target.dataset.coord
+            ) &&
+            !computerGameBoard.moves.misses.includes(
+                event.target.dataset.coord
+            ) &&
             !playerGameBoard.allShipsAreSunk() &&
             !computerGameBoard.allShipsAreSunk()
         ) {
