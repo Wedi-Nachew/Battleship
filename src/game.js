@@ -7,15 +7,15 @@ import "./style.css";
 export const playerGameBoard = GameBoard();
 export const computerGameBoard = GameBoard();
 playerGameBoard.placeShips("destroyer", "A2", "horizontal");
-playerGameBoard.placeShips("submarine", "H7", "horizontal");
+playerGameBoard.placeShips("submarine", "E1", "horizontal");
 playerGameBoard.placeShips("cruiser", "F10", "vertical");
 playerGameBoard.placeShips("battleship", "J1", "horizontal");
 playerGameBoard.placeShips("carrier", "C8", "vertical");
 computerGameBoard.placeShips("destroyer", "J2", "horizontal");
-computerGameBoard.placeShips("submarine", "C6", "vertical");
+computerGameBoard.placeShips("submarine", "C10", "vertical");
 computerGameBoard.placeShips("cruiser", "D2", "vertical");
 computerGameBoard.placeShips("battleship", "A4", "horizontal");
-computerGameBoard.placeShips("carrier", "E2", "vertical");
+computerGameBoard.placeShips("carrier", "E4", "vertical");
 const renderGameBoard = () => {
     const playerPlayGround = document.querySelector(".playerGameBoard");
     const computerPlayGround = document.querySelector(".computerGameBoard");
@@ -40,5 +40,22 @@ const renderGameBoard = () => {
         }
     }
 };
+const renderShips = () => {
+    const playerSquares = [
+        ...document.querySelectorAll(".playerGameBoard > div"),
+    ];
 
+    for (let ship in playerGameBoard.coordsOfShips) {
+        for (let square of playerSquares) {
+            if (
+                playerGameBoard.coordsOfShips[ship].includes(
+                    square.dataset.coord
+                )
+            ) {
+                square.classList.add("ship");
+            }
+        }
+    }
+};
 renderGameBoard();
+renderShips();

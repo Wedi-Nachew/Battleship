@@ -1,3 +1,6 @@
+:root {
+    box-sizing: border-box;
+}
 body {
     display: flex;
     flex-flow: column wrap;
@@ -29,6 +32,7 @@ h1 {
     border-bottom: 1px solid gray;
     height: 33px;
     width: 33px;
+    margin: 0;
 }
 .playerGameBoard > div:nth-child(10n + 1),
 .computerGameBoard > div:nth-child(10n + 1) {
@@ -72,4 +76,7 @@ h1 {
     top: -25px;
     left: 597px;
     gap: 25px;
+}
+.playerGameBoard .ship {
+    background-color: gray;
 }
