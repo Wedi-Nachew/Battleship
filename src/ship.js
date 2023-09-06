@@ -61,5 +61,4 @@ const Ship = () => {
 
     return { destroyer, submarine, cruiser, battleship, carrier };
 };
-const ships = Ship();
-module.exports = ships;
+export const ships = Ship();

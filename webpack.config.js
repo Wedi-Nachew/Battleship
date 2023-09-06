@@ -8,19 +8,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css/,
+                test: /\.css$/,
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.(png|jpg|jpeg|svg|gif)/i,
+                test: /\.(png|jpg|jpeg|svg|gif)$/i,
                 type: "asset/resource",
             },
             {
-                test: /\.html/,
+                test: /\.html$/,
                 use: ["html-loader"],
             },
             {
-                test: /\.js/,
+                test: /\.js$/,
                 exclude: /(node_modules)|(test)/,
                 use: {
                     loader: "babel-loader",
@@ -39,7 +39,8 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "main.[contenthash].js",
+        filename: "main.js",
         assetModuleFilename: "./assets/[name][hash][ext]",
+        clean: true,
     },
 };

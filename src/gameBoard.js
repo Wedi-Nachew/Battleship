@@ -1,6 +1,8 @@
-import ships from "./ship";
+import { ships } from "./ship";
 
-const GameBoard = () => {
+export const GameBoard = () => {
+    const moves = { hits: [], misses: [] };
+    const coordsOfShips = {};
     const alphaNumbericConversion = {
         A: 1,
         B: 2,
@@ -20,7 +22,6 @@ const GameBoard = () => {
             }
         }
     }
-
     const coords = () => {
         let allCoords = [];
         let alpha = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -32,8 +33,7 @@ const GameBoard = () => {
 
         return allCoords;
     };
-    const placeShips = (shipType, startCoord, axis) => {
-        let coordsOfShips = {};
+    const placeShips = (shipType, startCoord, axis = horizontal) => {
         coordsOfShips[shipType] = [startCoord];
         for (let i = 1; i < ships[shipType].length; i++) {
             if (axis === "horizontal") {
@@ -53,8 +53,7 @@ const GameBoard = () => {
         return coordsOfShips;
     };
     const receiveAttack = (atCoord) => {
-        const positionOfShips = callBack();
-        const moves = { hits: [], misses: [] };
+        const positionOfShips = placeShips();
         for (let ship in positionOfShips) {
             if (positionOfShips[ship].includes(atCoord)) {
                 ships[ship].hit();
@@ -68,16 +67,22 @@ const GameBoard = () => {
         return moves;
     };
     const allShipsAreSunk = () => {
-        const allShipsAreSunk = true;
+        let allShipsAreSunk = true;
         for (let ship in ships) {
             if (ships[ship].isSunk() == false) {
-                return false;
+                allShipsAreSunk = false;
+                return;
             }
         }
         return allShipsAreSunk;
     };
 
-    return { coords, placeShips, receiveAttack, allShipsAreSunk };
+    return {
+        coords,
+        moves,
+        coordsOfShips,
+        placeShips,
+        receiveAttack,
+        allShipsAreSunk,
+    };
 };
-const gameBoard = GameBoard();
-module.exports = gameBoard;

@@ -1,0 +1,75 @@
+body {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0 150px;
+    gap: 50px;
+}
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    font-family: cursive;
+}
+.container {
+    display: flex;
+    gap: 120px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.playerGameBoard,
+.computerGameBoard {
+    height: 330px;
+    width: 330px;
+    display: grid;
+    grid: 1fr / repeat(10, 1fr);
+}
+.playerGameBoard > div,
+.computerGameBoard > div {
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    height: 33px;
+    width: 33px;
+}
+.playerGameBoard > div:nth-child(10n + 1),
+.computerGameBoard > div:nth-child(10n + 1) {
+    border-left: 1px solid gray;
+}
+.playerGameBoard > div:nth-child(-n + 10),
+.computerGameBoard > div:nth-child(-n + 10) {
+    border-top: 1px solid gray;
+}
+.player_rows,
+.computer_rows,
+.player_columns,
+.computer_columns {
+    position: absolute;
+    font-size: 0.8rem;
+}
+.player_rows {
+    left: 105px;
+    top: 10px;
+    display: flex;
+    gap: 18px;
+    flex-direction: column;
+    text-align: center;
+}
+.player_columns {
+    display: flex;
+    top: -25px;
+    left: 148px;
+    gap: 25px;
+}
+.computer_rows {
+    left: 555px;
+    top: 10px;
+    display: flex;
+    gap: 18px;
+    flex-direction: column;
+    text-align: center;
+}
+.computer_columns {
+    display: flex;
+    top: -25px;
+    left: 597px;
+    gap: 25px;
+}
