@@ -77,6 +77,12 @@ h1 {
     left: 597px;
     gap: 25px;
 }
-.playerGameBoard .ship {
+.container .ship {
     background-color: gray;
+}
+.container div.a-miss {
+    background-color: green;
+}
+.container div.a-hit {
+    background-color: red;
 }

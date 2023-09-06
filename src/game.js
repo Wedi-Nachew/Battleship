@@ -1,6 +1,6 @@
 import { GameBoard } from "./gameBoard";
 import { Player, Computer } from "./player";
-import { ships } from "./ship";
+import { Ship } from "./ship";
 
 import "./style.css";
 
@@ -16,33 +16,38 @@ computerGameBoard.placeShips("submarine", "C10", "vertical");
 computerGameBoard.placeShips("cruiser", "D2", "vertical");
 computerGameBoard.placeShips("battleship", "A4", "horizontal");
 computerGameBoard.placeShips("carrier", "E4", "vertical");
+
 const renderGameBoard = () => {
     const playerPlayGround = document.querySelector(".playerGameBoard");
     const computerPlayGround = document.querySelector(".computerGameBoard");
     for (let coord of playerGameBoard.coords()) {
-        const playerSquare = document.createElement("div");
-        playerSquare.setAttribute("data-coord", coord);
-        playerPlayGround.appendChild(playerSquare);
-        if (computerGameBoard.moves.hits.includes(coord)) {
-            playerSquare.className = "a-hit";
-        } else if (computerGameBoard.moves.hits.includes(coord)) {
-            playerSquare.className = "a-miss";
+        const square = document.createElement("div");
+        square.setAttribute("data-coord", coord);
+        if (playerGameBoard.moves.hits.includes(coord)) {
+            square.classList.add("a-hit");
+        } else if (playerGameBoard.moves.misses.includes(coord)) {
+            square.classList.add("a-miss");
         }
+        playerPlayGround.appendChild(square);
     }
     for (let coord of computerGameBoard.coords()) {
-        const computerSquare = document.createElement("div");
-        computerSquare.setAttribute("data-coord", coord);
-        computerPlayGround.appendChild(computerSquare);
-        if (playerGameBoard.moves.hits.includes(coord)) {
-            computerSquare.className = "a-hit";
-        } else if (playerGameBoard.moves.hits.includes(coord)) {
-            computerSquare.className = "a-miss";
+        const square = document.createElement("div");
+        square.setAttribute("data-coord", coord);
+
+        if (computerGameBoard.moves.hits.includes(coord)) {
+            square.classList.add("a-hit");
+        } else if (computerGameBoard.moves.misses.includes(coord)) {
+            square.classList.add("a-miss");
         }
+        computerPlayGround.appendChild(square);
     }
 };
 const renderShips = () => {
     const playerSquares = [
         ...document.querySelectorAll(".playerGameBoard > div"),
+    ];
+    const computerSquares = [
+        ...document.querySelectorAll(".computerGameBoard > div"),
     ];
 
     for (let ship in playerGameBoard.coordsOfShips) {
@@ -56,6 +61,44 @@ const renderShips = () => {
             }
         }
     }
+    for (let ship in computerGameBoard.coordsOfShips) {
+        for (let square of computerSquares) {
+            if (
+                computerGameBoard.coordsOfShips[ship].includes(
+                    square.dataset.coord
+                )
+            ) {
+                square.classList.add("ship");
+            }
+        }
+    }
+};
+const playGame = () => {
+    const computerPlayGround = document.querySelector(".computerGameBoard");
+    const removeExistingMarks = () => {
+        const playerPlayGround = document.querySelector(".playerGameBoard");
+        const computerPlayGround = document.querySelector(".computerGameBoard");
+        while (playerPlayGround.firstChild || computerPlayGround.firstChild) {
+            playerPlayGround.removeChild(playerPlayGround.firstChild);
+            computerPlayGround.removeChild(computerPlayGround.firstChild);
+        }
+    };
+
+    computerPlayGround.addEventListener("click", (event) => {
+        if (
+            event.target.nodeName === "DIV" &&
+            !playerGameBoard.allShipsAreSunk() &&
+            !computerGameBoard.allShipsAreSunk()
+        ) {
+            removeExistingMarks();
+            Player(event.target.dataset.coord);
+            Computer();
+            renderGameBoard();
+            renderShips();
+        }
+        console.log(computerGameBoard.allShipsAreSunk());
+    });
 };
 renderGameBoard();
 renderShips();
+playGame();

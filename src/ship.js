@@ -1,4 +1,4 @@
-const Ship = () => {
+export const Ship = () => {
     const destroyer = {
         length: 2,
         hits: 0,
@@ -61,4 +61,3 @@ const Ship = () => {
 
     return { destroyer, submarine, cruiser, battleship, carrier };
 };
-export const ships = Ship();

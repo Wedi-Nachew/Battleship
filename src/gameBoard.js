@@ -1,7 +1,8 @@
-import { ships } from "./ship";
+import { Ship } from "./ship";
 
 export const GameBoard = () => {
     const moves = { hits: [], misses: [] };
+    const ships = Ship();
     const coordsOfShips = {};
     const alphaNumbericConversion = {
         A: 1,
@@ -33,21 +34,23 @@ export const GameBoard = () => {
 
         return allCoords;
     };
-    const placeShips = (shipType, startCoord, axis = horizontal) => {
+    const placeShips = (shipType, startCoord, axis = "horizontal") => {
         coordsOfShips[shipType] = [startCoord];
-        for (let i = 1; i < ships[shipType].length; i++) {
-            if (axis === "horizontal") {
-                startCoord =
-                    startCoord[0] + (Number.parseInt(startCoord[1]) + 1);
-                coordsOfShips[shipType].push(startCoord);
-            } else if (axis === "vertical") {
-                startCoord =
-                    convertNumberToAlpha(
-                        Number.parseInt(
-                            alphaNumbericConversion[startCoord[0]] + 1
-                        )
-                    ) + startCoord.slice(1);
-                coordsOfShips[shipType].push(startCoord);
+        if (ships[shipType] !== undefined) {
+            for (let i = 1; i < ships[shipType].length; i++) {
+                if (axis === "horizontal") {
+                    startCoord =
+                        startCoord[0] + (Number.parseInt(startCoord[1]) + 1);
+                    coordsOfShips[shipType].push(startCoord);
+                } else if (axis === "vertical") {
+                    startCoord =
+                        convertNumberToAlpha(
+                            Number.parseInt(
+                                alphaNumbericConversion[startCoord[0]] + 1
+                            )
+                        ) + startCoord.slice(1);
+                    coordsOfShips[shipType].push(startCoord);
+                }
             }
         }
         return coordsOfShips;
@@ -71,7 +74,7 @@ export const GameBoard = () => {
         for (let ship in ships) {
             if (ships[ship].isSunk() == false) {
                 allShipsAreSunk = false;
-                return;
+                return allShipsAreSunk;
             }
         }
         return allShipsAreSunk;
@@ -79,6 +82,7 @@ export const GameBoard = () => {
 
     return {
         coords,
+        ships,
         moves,
         coordsOfShips,
         placeShips,
