@@ -21,7 +21,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: /(node_modules)|(test)/,
+                exclude: /(node_modules| test)/,
                 use: {
                     loader: "babel-loader",
                     options: {
@@ -40,7 +40,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "main.js",
-        assetModuleFilename: "./assets/[name][hash][ext]",
         clean: true,
     },
 };

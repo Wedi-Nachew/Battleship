@@ -4,18 +4,21 @@ import { Ship } from "./ship";
 
 import "./style.css";
 
-export const playerGameBoard = GameBoard();
-export const computerGameBoard = GameBoard();
-playerGameBoard.placeShips("destroyer", "A2", "horizontal");
-playerGameBoard.placeShips("submarine", "E1", "horizontal");
-playerGameBoard.placeShips("cruiser", "F10", "vertical");
-playerGameBoard.placeShips("battleship", "J1", "horizontal");
-playerGameBoard.placeShips("carrier", "C8", "vertical");
-computerGameBoard.placeShips("destroyer", "J2", "horizontal");
-computerGameBoard.placeShips("submarine", "C10", "vertical");
-computerGameBoard.placeShips("cruiser", "D2", "vertical");
-computerGameBoard.placeShips("battleship", "A4", "horizontal");
-computerGameBoard.placeShips("carrier", "E4", "vertical");
+export let playerGameBoard = GameBoard();
+export let computerGameBoard = GameBoard();
+const allPossibleMoves = playerGameBoard.coords();
+function placeShipsmanually() {
+    playerGameBoard.placeShips("destroyer", "A2", "horizontal");
+    playerGameBoard.placeShips("submarine", "E1", "horizontal");
+    playerGameBoard.placeShips("cruiser", "F10", "vertical");
+    playerGameBoard.placeShips("battleship", "J1", "horizontal");
+    playerGameBoard.placeShips("carrier", "C8", "vertical");
+    computerGameBoard.placeShips("destroyer", "J2", "horizontal");
+    computerGameBoard.placeShips("submarine", "C10", "vertical");
+    computerGameBoard.placeShips("cruiser", "D2", "vertical");
+    computerGameBoard.placeShips("battleship", "A4", "horizontal");
+    computerGameBoard.placeShips("carrier", "E4", "vertical");
+}
 
 const renderGameBoard = () => {
     const playerPlayGround = document.querySelector(".playerGameBoard");
@@ -73,16 +76,16 @@ const renderShips = () => {
         }
     }
 };
+const removeExistingMarks = () => {
+    const playerPlayGround = document.querySelector(".playerGameBoard");
+    const computerPlayGround = document.querySelector(".computerGameBoard");
+    while (playerPlayGround.firstChild || computerPlayGround.firstChild) {
+        playerPlayGround.removeChild(playerPlayGround.firstChild);
+        computerPlayGround.removeChild(computerPlayGround.firstChild);
+    }
+};
 const playGame = () => {
     const computerPlayGround = document.querySelector(".computerGameBoard");
-    const removeExistingMarks = () => {
-        const playerPlayGround = document.querySelector(".playerGameBoard");
-        const computerPlayGround = document.querySelector(".computerGameBoard");
-        while (playerPlayGround.firstChild || computerPlayGround.firstChild) {
-            playerPlayGround.removeChild(playerPlayGround.firstChild);
-            computerPlayGround.removeChild(computerPlayGround.firstChild);
-        }
-    };
     const announceWinner = (winner) => {
         const winnerText = document.querySelector(".announce-winner h1");
         winnerText.textContent = winner + " Wons!";
@@ -103,7 +106,7 @@ const playGame = () => {
         ) {
             removeExistingMarks();
             Player(event.target.dataset.coord);
-            Computer();
+            Computer(allPossibleMoves);
             renderGameBoard();
             renderShips();
         }
@@ -117,6 +120,21 @@ const playGame = () => {
         }
     });
 };
+const restartGame = () => {
+    const restartBtn = document.querySelector(".announce-winner button");
+    restartBtn.addEventListener("click", () => {
+        removeExistingMarks();
+        playerGameBoard = GameBoard();
+        computerGameBoard = GameBoard();
+        placeShipsmanually();
+        renderGameBoard();
+        renderShips();
+        playGame();
+        restartBtn.parentElement.style.cssText = "visibility: hidden";
+    });
+};
+placeShipsmanually();
 renderGameBoard();
 renderShips();
 playGame();
+restartGame();

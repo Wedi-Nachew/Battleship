@@ -1,16 +1,16 @@
 import { playerGameBoard, computerGameBoard } from "./game";
+import { GameBoard } from "./gameBoard";
 
-export const Player = (atCoord) => {
-    return computerGameBoard.receiveAttack(atCoord);
-};
+const Player = (atCoord) => computerGameBoard.receiveAttack(atCoord);
 
-export const Computer = () => {
-    const allPossibleMoves = computerGameBoard.coords();
+const Computer = (possibleMoves) => {
     const computerMove =
-        allPossibleMoves[~~(Math.random() * allPossibleMoves.length)];
-    allPossibleMoves.splice(
-        allPossibleMoves.findIndex((coord) => coord === computerMove),
-        1
+        possibleMoves[~~(Math.random() * possibleMoves.length)];
+    const moveIndex = possibleMoves.findIndex(
+        (coord) => coord === computerMove
     );
-    return playerGameBoard.receiveAttack(computerMove);
+    possibleMoves.splice(moveIndex, 1);
+    playerGameBoard.receiveAttack(computerMove);
 };
+
+export { Computer, Player };
