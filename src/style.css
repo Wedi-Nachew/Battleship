@@ -100,18 +100,30 @@ h1 {
     width: 100%;
     height: 100%;
     color: #fff;
+    gap: 30px;
+}
+.announce-winner div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.announce-winner h2 {
+    font-size: 3rem;
+    margin-bottom: 0;
 }
 .announce-winner h1 {
     font-size: 6rem;
     font-family: "Times New Roman", Times, serif;
     width: min(15ch);
     text-align: center;
+    margin-top: 10px;
 }
 .announce-winner button {
-    padding: 20px 70px;
+    padding: 13px 100px;
     cursor: pointer;
     font-size: 1.5rem;
     font-weight: 500;
-    border-radius: 20px;
+    border-radius: 15px;
     border: none;
 }

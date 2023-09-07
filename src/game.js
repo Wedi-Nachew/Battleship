@@ -88,7 +88,7 @@ const playGame = () => {
     const computerPlayGround = document.querySelector(".computerGameBoard");
     const announceWinner = (winner) => {
         const winnerText = document.querySelector(".announce-winner h1");
-        winnerText.textContent = winner + " Wons!";
+        winnerText.textContent = winner;
         winnerText.parentElement.style.cssText = "visibility: visible";
     };
 
@@ -114,9 +114,9 @@ const playGame = () => {
             playerGameBoard.allShipsAreSunk() ||
             computerGameBoard.allShipsAreSunk()
         ) {
-            playerGameBoard.allShipsAreSunk
-                ? announceWinner("You")
-                : announceWinner("The computer");
+            playerGameBoard.allShipsAreSunk()
+                ? announceWinner("Computer")
+                : announceWinner("You");
         }
     });
 };
