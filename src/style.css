@@ -20,7 +20,8 @@ h1 {
     position: relative;
 }
 .playerGameBoard,
-.computerGameBoard {
+.computerGameBoard,
+.grid {
     height: 330px;
     width: 330px;
     display: grid;
@@ -35,11 +36,13 @@ h1 {
     margin: 0;
 }
 .playerGameBoard > div:nth-child(10n + 1),
-.computerGameBoard > div:nth-child(10n + 1) {
+.computerGameBoard > div:nth-child(10n + 1),
+.grid > div:nth-child(10n + 1) {
     border-left: 1px solid gray;
 }
 .playerGameBoard > div:nth-child(-n + 10),
-.computerGameBoard > div:nth-child(-n + 10) {
+.computerGameBoard > div:nth-child(-n + 10),
+.grid > div:nth-child(-n + 10) {
     border-top: 1px solid gray;
 }
 .player_rows,
@@ -77,9 +80,7 @@ h1 {
     left: 597px;
     gap: 25px;
 }
-.container .ship {
-    background-color: gray;
-}
+
 .container div.a-miss {
     background-color: green;
 }
@@ -126,4 +127,68 @@ h1 {
     font-weight: 500;
     border-radius: 15px;
     border: none;
+}
+.place-ships {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    z-index: 100;
+    color: #000;
+}
+.place-ships > div {
+    display: flex;
+    gap: 100px;
+    align-items: normal;
+}
+.grid > div {
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    height: 33px;
+    width: 33px;
+    margin: 0;
+}
+
+.grid > div:nth-child(10n + 1) {
+    border-left: 1px solid gray;
+}
+
+.grid > div:nth-child(-n + 10) {
+    border-top: 1px solid gray;
+}
+
+.ships {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 300px;
+}
+.ships > div {
+    display: flex;
+}
+.vertical {
+    flex-direction: column;
+}
+.ships > div > div {
+    height: 33px;
+    width: 33px;
+    border: 1px solid #fff;
+    background-color: black;
+}
+.place-ships h1 {
+    margin-bottom: 10px;
+}
+.place-ships h2 {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: 1.5;
+}
+.ship {
+    background-color: red !important;
 }

@@ -34,15 +34,15 @@ export const GameBoard = () => {
 
         return allCoords;
     };
-    const placeShips = (shipType, startCoord, axis = "horizontal") => {
+    const placeShips = (shipType, startCoord, axis) => {
         coordsOfShips[shipType] = [startCoord];
         if (ships[shipType] !== undefined) {
             for (let i = 1; i < ships[shipType].length; i++) {
-                if (axis === "horizontal") {
+                if (axis === "row") {
                     startCoord =
                         startCoord[0] + (Number.parseInt(startCoord[1]) + 1);
                     coordsOfShips[shipType].push(startCoord);
-                } else if (axis === "vertical") {
+                } else if (axis === "column") {
                     startCoord =
                         convertNumberToAlpha(
                             Number.parseInt(
@@ -81,6 +81,8 @@ export const GameBoard = () => {
     };
 
     return {
+        alphaNumbericConversion,
+        convertNumberToAlpha,
         coords,
         ships,
         moves,
