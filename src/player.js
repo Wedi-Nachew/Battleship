@@ -12,5 +12,23 @@ const Computer = (possibleMoves) => {
     possibleMoves.splice(moveIndex, 1);
     playerGameBoard.receiveAttack(computerMove);
 };
+const placeComputerShips = (shipType, possibleCoords) => {
+    for (let ship in computerGameBoard.coordsOfShips) {
+        for (let coord of computerGameBoard.coordsOfShips[ship]) {
+            if (possibleCoords.includes(coord)) {
+                const coordIndex = possibleCoords.findIndex(
+                    (item) => item === coord
+                );
+                possibleCoords.splice(coordIndex, 1);
+            }
+        }
+    }
+    const axises = ["vertical", "horizontal"];
+    const shipPlacementAxis = axises[~~(Math.random() * axises.length)];
+    const startingCoord =
+        possibleCoords[~~(Math.random() * possibleCoords.length)];
 
-export { Computer, Player };
+    computerGameBoard.placeShips(shipType, startingCoord, shipPlacementAxis);
+};
+
+export { Computer, Player, placeComputerShips };

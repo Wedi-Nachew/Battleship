@@ -38,11 +38,11 @@ export const GameBoard = () => {
         coordsOfShips[shipType] = [startCoord];
         if (ships[shipType] !== undefined) {
             for (let i = 1; i < ships[shipType].length; i++) {
-                if (axis === "row") {
+                if (axis === "horizontal") {
                     startCoord =
                         startCoord[0] + (Number.parseInt(startCoord[1]) + 1);
                     coordsOfShips[shipType].push(startCoord);
-                } else if (axis === "column") {
+                } else if (axis === "vertical") {
                     startCoord =
                         convertNumberToAlpha(
                             Number.parseInt(

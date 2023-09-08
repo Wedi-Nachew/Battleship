@@ -1,5 +1,5 @@
 import { GameBoard } from "./gameBoard";
-import { Player, Computer } from "./player";
+import { Player, Computer, placeComputerShips } from "./player";
 import { Ship } from "./ship";
 
 import "./style.css";
@@ -7,6 +7,7 @@ import "./style.css";
 export let playerGameBoard = GameBoard();
 export let computerGameBoard = GameBoard();
 const allPossibleMoves = playerGameBoard.coords();
+const allPossibleCoords = computerGameBoard.coords();
 
 const placePlayerShips = () => {
     const placeShips = document.querySelector(".place-ships");
@@ -36,7 +37,7 @@ const placePlayerShips = () => {
                 const dataNum = child.getAttribute("data-num");
                 shipType = ship.getAttribute("id");
                 squareNum = dataNum;
-                axis = window.getComputedStyle(ship)["-webkit-flex-direction"];
+                axis = ship.classList[0];
             });
         });
     });
@@ -49,8 +50,9 @@ const placePlayerShips = () => {
         child.addEventListener("drop", (event) => {
             start = event.target.dataset.coord;
             const ship = document.getElementById(shipType);
-            if (axis === "row") {
+            if (axis === undefined) {
                 start = start[0] + (+start.slice(1) - squareNum);
+                axis = "horizontal";
             } else {
                 const alpha =
                     playerGameBoard.alphaNumbericConversion[start[0]] -
@@ -62,20 +64,21 @@ const placePlayerShips = () => {
             }
 
             playerGameBoard.placeShips(shipType, start, axis);
+            placeComputerShips(shipType, allPossibleCoords);
+            // console.log({ shipType, start, axis });
             renderShips(grid.childNodes);
             renderShips(gridOfPlayer);
             ship.parentElement.removeChild(ship);
-            removeShipsPlacementPage();
+            hideShipsPlacementPage();
         })
     );
 };
-const removeShipsPlacementPage = () => {
+const hideShipsPlacementPage = () => {
     const ships = document.querySelector(".ships");
     const placeShips = document.querySelector(".place-ships");
     if (!ships.firstElementChild) {
         placeShips.style.cssText = "visibility: hidden";
     }
-    console.log({ ships, placeShips });
 };
 const renderGameBoard = () => {
     const playerPlayGround = document.querySelector(".playerGameBoard");
