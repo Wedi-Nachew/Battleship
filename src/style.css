@@ -6,6 +6,7 @@ body {
     flex-flow: column wrap;
     padding: 0 150px;
     gap: 50px;
+    font-family: "Times New Roman", Times, serif;
 }
 h1 {
     font-size: 2.5rem;
@@ -48,15 +49,17 @@ h1 {
 .player_rows,
 .computer_rows,
 .player_columns,
-.computer_columns {
+.computer_columns,
+.grid_rows,
+.grid_columns {
     position: absolute;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 .player_rows {
     left: 105px;
     top: 10px;
     display: flex;
-    gap: 18px;
+    gap: 17px;
     flex-direction: column;
     text-align: center;
 }
@@ -64,13 +67,13 @@ h1 {
     display: flex;
     top: -25px;
     left: 148px;
-    gap: 25px;
+    gap: 26px;
 }
 .computer_rows {
     left: 555px;
     top: 10px;
     display: flex;
-    gap: 18px;
+    gap: 17px;
     flex-direction: column;
     text-align: center;
 }
@@ -78,7 +81,7 @@ h1 {
     display: flex;
     top: -25px;
     left: 597px;
-    gap: 25px;
+    gap: 26px;
 }
 
 .container div.a-miss {
@@ -142,6 +145,7 @@ h1 {
     background-color: #fff;
     z-index: 100;
     color: #000;
+    /* visibility: hidden; */
 }
 .place-ships > div {
     display: flex;
@@ -185,14 +189,38 @@ h1 {
 .place-ships h1 {
     margin-bottom: 10px;
 }
+.place-ships .description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+    width: 40%;
+}
+ul {
+    list-style: circle;
+    margin-top: 0;
+    font-size: 1rem;
+    font-family: inherit;
+}
 .place-ships h2 {
     margin-top: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 0;
     font-size: 1.5;
+    align-self: center;
 }
 .ship {
     background-color: black !important;
 }
-.moved {
-    display: none;
+.grid_rows {
+    display: flex;
+    flex-direction: column;
+    left: 300px;
+    top: 287px;
+    gap: 17px;
+}
+.grid_columns {
+    display: flex;
+    left: 333px;
+    top: 257px;
+    gap: 26px;
 }
