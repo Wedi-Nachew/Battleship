@@ -1,3 +1,4 @@
+import { computerGameBoard } from "./game";
 import { Ship } from "./ship";
 
 export const GameBoard = () => {
@@ -39,15 +40,12 @@ export const GameBoard = () => {
         if (ships[shipType] !== undefined) {
             for (let i = 1; i < ships[shipType].length; i++) {
                 if (axis === "horizontal") {
-                    startCoord =
-                        startCoord[0] + (Number.parseInt(startCoord[1]) + 1);
+                    startCoord = startCoord[0] + (+startCoord[1] + 1);
                     coordsOfShips[shipType].push(startCoord);
                 } else if (axis === "vertical") {
                     startCoord =
                         convertNumberToAlpha(
-                            Number.parseInt(
-                                alphaNumbericConversion[startCoord[0]] + 1
-                            )
+                            +alphaNumbericConversion[startCoord[0]] + 1
                         ) + startCoord.slice(1);
                     coordsOfShips[shipType].push(startCoord);
                 }
@@ -55,10 +53,44 @@ export const GameBoard = () => {
         }
         return coordsOfShips;
     };
+    const isPlacementValid = (shipType, startCoord, axis, gameBoard) => {
+        const alpha = gameBoard.alphaNumbericConversion[startCoord[0]];
+        const coords = [startCoord];
+
+        if (
+            (axis === "horizontal" &&
+                +startCoord.slice(1) + ships[shipType].length > 11) ||
+            (axis === "vertical" && +alpha + ships[shipType].length > 11)
+        ) {
+            return false;
+        }
+
+        for (let i = 1; i < ships[shipType].length; i++) {
+            if (axis === "horizontal") {
+                startCoord = startCoord[0] + (+startCoord[1] + 1);
+                coords.push(startCoord);
+            } else if (axis === "vertical") {
+                startCoord =
+                    convertNumberToAlpha(
+                        +alphaNumbericConversion[startCoord[0]] + 1
+                    ) + startCoord.slice(1);
+                coords.push(startCoord);
+            }
+        }
+
+        for (const coord of coords) {
+            for (const ship in coordsOfShips) {
+                if (coordsOfShips[ship].includes(coord)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
     const receiveAttack = (atCoord) => {
-        const positionOfShips = placeShips();
-        for (let ship in positionOfShips) {
-            if (positionOfShips[ship].includes(atCoord)) {
+        for (let ship in coordsOfShips) {
+            if (coordsOfShips[ship].includes(atCoord)) {
                 ships[ship].hit();
                 moves.hits.push(atCoord);
             }
@@ -88,6 +120,7 @@ export const GameBoard = () => {
         moves,
         coordsOfShips,
         placeShips,
+        isPlacementValid,
         receiveAttack,
         allShipsAreSunk,
     };
