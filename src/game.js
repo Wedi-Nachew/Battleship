@@ -94,7 +94,6 @@ const hideShipsPlacementPage = () => {
         while (grid.firstChild) {
             grid.removeChild(grid.firstChild);
         }
-        console.log(computerGameBoard.coordsOfShips);
     }
 };
 const renderGameBoard = () => {

@@ -59,9 +59,8 @@ export const GameBoard = () => {
 
         if (
             (axis === "horizontal" &&
-                +startCoord.slice(1) +
-                    (ships[shipType].length > 11 ||
-                        +startCoord.slice(1) < 1)) ||
+                (+startCoord.slice(1) + ships[shipType].length > 11 ||
+                    +startCoord.slice(1) < 1)) ||
             (axis === "vertical" &&
                 (+alpha + ships[shipType].length > 11 || +alpha < 1))
         ) {

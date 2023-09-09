@@ -14,10 +14,10 @@ const Computer = (possibleMoves) => {
 };
 const placeComputerShips = (shipType) => {
     const axises = ["vertical", "horizontal"];
-    const shipPlacementAxis = axises[~~(Math.random() * axises.length)];
     const possibleCoords = computerGameBoard.coords();
 
     while (true) {
+        const shipPlacementAxis = axises[~~(Math.random() * axises.length)];
         const startingCoord =
             possibleCoords[~~(Math.random() * possibleCoords.length)];
         if (
